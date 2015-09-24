@@ -2,26 +2,72 @@
 <html>
   <head>
     <script src="jquery.js"></script>
-    <script src="data_generator.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
   </head>
   <body>
-    <script>
+    <div class="container">
+      <header>
+        <h1>Twittler</h1>
+      </header>
+      <div class="row">
+        <div id="main" class="col-md-5"></div>
+        <div id="side" class="col-md-4">
+          <h4 id="selectUser"></h4>
+          <div id="userPosts"></div>
+        </div>
+      </div>
+    </div>
+      <script>
+        var showTweet = function(newTweet) {
+          var $tweet = $('<div class="post"></div>');
+          var $user = $('<h4 class="user"></h4>').text('@' + newTweet.user);
+          var $message = $('<p class="message"></p>').text(newTweet.message);
+          var $time = $('<p class="time"></p>').text(newTweet.created_at);
+          $tweet.prepend($user, $message, $time);
+          $('#main').prepend($tweet);
+        };
 
-      $(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
+        $(document).ready(function(){
+          var $main = $('#main');
+          var $userPosts = $('#userPosts');
+          var $side = $('#side');
+          $side.hide();
+          $main.html('');
 
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
-          index -= 1;
-        }
+          var index = streams.home.length - 1;
+          while(index >= 0){
+            var tweet = streams.home[index];
+            var $tweet = $('<div class="post"></div>');
+            var $user = $('<h4 class="user"></h4>').text('@' + tweet.user);
+            var $message = $('<p class="message"></p>').text(tweet.message);
+            var $time = $('<p class="time"></p>').text(tweet.created_at);
+            $tweet.prepend($user, $message, $time);
+            $('#main').prepend($tweet);
+            index -= 1;
+          }
 
-      });
+          $('#main').on('mouseover', 'h4', function() {
+            $(this).css('cursor', 'pointer');
+          });
 
-    </script>
+          $('#main').on('click', 'h4', function() {
+            $side.show();
+            $userPosts.html('');
+            $('#selectUser').text('Posts by ' + $(this).text());
+            var user = $(this).text().slice(1);
+            var tweets = streams.users[user];
+
+            tweets.forEach(function(post) {
+              var $tweet = $('<div class="post"></div>');
+              var $message = $('<p class="message"></p>').text(post.message);
+              var $time = $('<p class="time"></p>').text(post.created_at);
+              $tweet.prepend($message, $time);
+              $userPosts.prepend($tweet);
+            });
+          });
+        });
+      </script>
+    <script src="data_generator.js"></script>
   </body>
 </html>

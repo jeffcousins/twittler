@@ -18,6 +18,7 @@ var addTweet = function(newTweet){
   var username = newTweet.user;
   streams.users[username].push(newTweet);
   streams.home.push(newTweet);
+  showTweet(newTweet);
 };
 
 // utility function

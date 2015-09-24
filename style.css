@@ -1,0 +1,53 @@
+body {
+	background-color: #EAFFFB;
+}
+
+.container {
+	padding: 10px;
+	margin: 40px;
+}
+
+header {
+	margin-left: 30px;
+}
+
+#main {
+	border: 1px solid #9BADAB;
+	background-color: #ffffff;
+	border-radius: 12px;
+	margin: 0 40px 0 20px;
+}
+
+#side {
+	float: left;
+	border: 1px solid #9BADAB;
+	background-color: #ffffff;
+	border-radius: 12px;
+	margin: 0 20px;
+}
+
+.post {
+	padding: 5px;
+	margin: 5px;
+	border-bottom: 1px solid #CCC;
+}
+
+.time {
+	color: #BBB;
+	font-size: 10px;
+}
+
+h4 {
+	font-weight: bold;
+	font-size: 16px;
+}
+
+#selectUser {
+	margin: 30px auto 20px auto;
+	text-align: center;
+	color: #6C7878;
+}
+
+#newPostCount {
+	text-align: center;
+}
